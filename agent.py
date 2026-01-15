@@ -106,15 +106,14 @@ class StartupJobSearchAgent:
         # Step 5: Create Gmail drafts
         print("📧 Step 5: Creating Gmail drafts...")
         
+        # Always save drafts locally first
+        self._save_drafts_locally(drafted_emails)
+        
         try:
             self.gmail_integration = GmailIntegration()
             
             if self.gmail_integration.service:
-                # Save drafts locally first
-                self._save_drafts_locally(drafted_emails)
-                
                 print("  Note: Gmail API requires actual recipient email addresses.")
-                print("  Drafts have been saved locally to 'email_drafts.txt'")
                 print("  You can manually create Gmail drafts or update recipient emails and run again.")
                 
                 # Uncomment the following lines when you have actual recipient emails
@@ -123,8 +122,6 @@ class StartupJobSearchAgent:
                 
         except Exception as e:
             print(f"  Could not connect to Gmail: {e}")
-            print("  Saving drafts locally instead...")
-            self._save_drafts_locally(drafted_emails)
         
         print()
         print("=" * 80)
