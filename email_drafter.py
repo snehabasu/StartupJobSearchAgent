@@ -18,6 +18,7 @@ class EmailDrafter:
             api_key: OpenAI API key (if None, will look for OPENAI_API_KEY env var)
         """
         self.api_key = api_key or os.getenv('OPENAI_API_KEY')
+        self.model = os.getenv('OPENAI_MODEL', 'gpt-4o-mini')  # Configurable model
         if self.api_key:
             self.client = OpenAI(api_key=self.api_key)
         else:
@@ -69,7 +70,7 @@ class EmailDrafter:
             """
             
             response = self.client.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model=self.model,
                 messages=[
                     {"role": "system", "content": "You are an expert career coach who writes compelling job application emails."},
                     {"role": "user", "content": prompt}

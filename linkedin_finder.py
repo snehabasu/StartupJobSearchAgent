@@ -122,7 +122,7 @@ class LinkedInFinder:
                 if response.status_code == 200:
                     online_presence['github'] = github_url
                     break
-            except:
+            except requests.RequestException:
                 continue
         
         # Search for Twitter
@@ -137,7 +137,7 @@ class LinkedInFinder:
                 if response.status_code == 200:
                     online_presence['twitter'] = twitter_url
                     break
-            except:
+            except requests.RequestException:
                 continue
         
         return online_presence

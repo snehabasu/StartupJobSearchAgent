@@ -2,7 +2,7 @@
 Resume Parser Module
 Extracts information from PDF resumes
 """
-import PyPDF2
+import pypdf
 import re
 from typing import Dict, List
 
@@ -20,7 +20,7 @@ class ResumeParser:
         text = ""
         try:
             with open(pdf_path, 'rb') as file:
-                pdf_reader = PyPDF2.PdfReader(file)
+                pdf_reader = pypdf.PdfReader(file)
                 for page in pdf_reader.pages:
                     text += page.extract_text()
         except Exception as e:
